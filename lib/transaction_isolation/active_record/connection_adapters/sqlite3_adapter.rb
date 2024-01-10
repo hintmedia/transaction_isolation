@@ -50,11 +50,11 @@ if defined?( ActiveRecord::ConnectionAdapters::SQLite3Adapter )
             end if block_given?
           end
           
-          def translate_exception_with_transaction_isolation_conflict( exception, message )
+          def translate_exception_with_transaction_isolation_conflict( exception, options )
             if isolation_conflict?( exception )
               ::ActiveRecord::TransactionIsolationConflict.new( "Transaction isolation conflict detected: #{exception.message}" )
             else
-              translate_exception_without_transaction_isolation_conflict( exception, message )
+              translate_exception_without_transaction_isolation_conflict( exception, **options )
             end
           end
           
